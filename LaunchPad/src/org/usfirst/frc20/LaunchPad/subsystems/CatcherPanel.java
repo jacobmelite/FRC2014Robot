@@ -9,17 +9,36 @@
 // it from being updated in the future.
 package org.usfirst.frc20.LaunchPad.subsystems;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc20.LaunchPad.commands.CatcherPanelOutCommand;
 
 /**
  *
  */
 public class CatcherPanel extends Subsystem {
-    
-    public CatcherPanel(){
+
+    private DoubleSolenoid doubleSolenoid;
+
+    public CatcherPanel(int moduleNumber, int forwardChannel, int reverseChannel) {
+        doubleSolenoid = new DoubleSolenoid(moduleNumber, forwardChannel, reverseChannel);
     }
     
     protected void initDefaultCommand() {
+        setDefaultCommand(new CatcherPanelOutCommand(this));
+    }
+
+    public void out() {
+        doubleSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void in() {
+        doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+
+    public boolean isOut() {
+        return doubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
     }
     
 }

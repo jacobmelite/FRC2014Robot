@@ -9,6 +9,7 @@
 // it from being updated in the future.
 package org.usfirst.frc20.LaunchPad;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -30,7 +31,11 @@ public class Robot extends IterativeRobot {
     public static Catapult catapult;
     public static Drivetrain drivetrain;
     public static DrivetrainGearbox drivetrainGearbox;
-
+    public static Compressor compressor;
+    public static CatcherPanel leftCatcherPanel;
+    public static CatcherPanel rightCatcherPanel;
+    public static CatcherPanel backCatcherPanel;
+    public static Collector collector;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -38,36 +43,64 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         RobotMap.init();
         catapult = new Catapult(RobotMap.catapultMotor1Channel,
-            RobotMap.catapultMotor2Channel,
-            RobotMap.catapultPneumaticModule,
-            RobotMap.catapultRatchetPneumaticForwardChannel,
-            RobotMap.catapultRatchetPneumaticReverseChannel,
-            RobotMap.catapultMotorPneumaticForwardChannel,
-            RobotMap.catapultMotorPneumaticReverseChannel,
-            RobotMap.catapultLimitSwitchChannel);
+                RobotMap.catapultMotor2Channel,
+                RobotMap.catapultPneumaticModule,
+                RobotMap.catapultRatchetPneumaticForwardChannel,
+                RobotMap.catapultRatchetPneumaticReverseChannel,
+                RobotMap.catapultMotorPneumaticForwardChannel,
+                RobotMap.catapultMotorPneumaticReverseChannel,
+                RobotMap.catapultLimitSwitchChannel);
 
         drivetrainGearbox = new DrivetrainGearbox(RobotMap.drivetrainGearboxPneumaticModule,
-            RobotMap.drivetrainGearboxPneumaticForwardChannel,
-            RobotMap.drivetrainGearboxPneumaticReverseChannel);
+                RobotMap.drivetrainGearboxPneumaticForwardChannel,
+                RobotMap.drivetrainGearboxPneumaticReverseChannel);
+
+        drivetrain = new Drivetrain(RobotMap.drivetrainRightTalon1Channel,
+                RobotMap.drivetrainRightTalon2Channel,
+                RobotMap.drivetrainRightTalon3Channel,
+                RobotMap.drivetrainLeftTalon1Channel,
+                RobotMap.drivetrainLeftTalon2Channel,
+                RobotMap.drivetrainLeftTalon3Channel,
+                RobotMap.drivetrainGyroChannel,
+                RobotMap.drivetrainLeftEncoderChannelA,
+                RobotMap.drivetrainLeftEncoderChannelB,
+                RobotMap.drivetrainRightEncoderChannelA,
+                RobotMap.drivetrainRightEncoderChannelB);
+
+        compressor = new Compressor(RobotMap.compressorSwitchChannel,
+                RobotMap.compressorRelayChannel);
+        compressor.start();
+
+        leftCatcherPanel = new CatcherPanel(RobotMap.leftCatcherPanelModuleNumber,
+                RobotMap.leftCatcherPanelForwardChannel,
+                RobotMap.leftCatcherPanelReverseChannel);
+
+        rightCatcherPanel = new CatcherPanel(RobotMap.rightCatcherPanelModuleNumber,
+                RobotMap.rightCatcherPanelForwardChannel,
+                RobotMap.rightCatcherPanelReverseChannel);
+
+        backCatcherPanel = new CatcherPanel(RobotMap.backCatcherPanelModuleNumber,
+                RobotMap.backCatcherPanelForwardChannel,
+                RobotMap.backCatcherPanelReverseChannel);
         
-        drivetrain = new Drivetrain(ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY,
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY, 
-            ROBOT_TASK_PRIORITY);
+        collector = new Collector(RobotMap.collectorLeftDoubleSolenoidModuleNumber,
+                RobotMap.collectorLeftDoubleSolenoidForwardChannel,
+                RobotMap.collectorLeftDoubleSolenoidReverseChannel,
+                RobotMap.collectorRightDoubleSolenoidModuleNumber,
+                RobotMap.collectorRightDoubleSolenoidForwardChannel,
+                RobotMap.collectorRightDoubleSolenoidReverseChannel,
+                RobotMap.collectorRollerMotorChannel);
+        
+        
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
-        oi = new OI();
 
+        oi = new OI(
+                new LogitechDualActionController(RobotMap.logitechDualActionControllerChannel),
+                new LogitechGamepadController(RobotMap.logitechGamepadControllerChannel));
         // instantiate the command used for the autonomous period
         // BEGIN AUTOGENERATED CODE, SOURCE=ROBOTBUILDER ID=AUTONOMOUS
         autonomousCommand = new AutonomousCommand();
