@@ -123,6 +123,8 @@ public class Drivetrain extends Subsystem {
         rightBrake1.enable();
         rightBrake2.enable();
         rightBrake3.enable();*/
+        leftBrake.setSetpoint(leftEncoder.getDistance());
+        rightBrake.setSetpoint(rightEncoder.getDistance());
         leftBrake.enable();
         rightBrake.enable();
     }
