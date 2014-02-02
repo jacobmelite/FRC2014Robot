@@ -12,36 +12,45 @@ import org.usfirst.frc20.LaunchPad.Robot;
  *
  * @author Elfun Gift
  */
-public class CollectorRetractCommand extends Command {
-    
-    public CollectorRetractCommand() {
+public class DrivetrainDriveDistanceCommand extends Command {
+
+    int distance;
+    double tolerance = .03;
+
+    public DrivetrainDriveDistanceCommand(int distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.collector);
+        requires(Robot.drivetrain);
+        this.distance = distance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.collector.retractCollector();
-        
+        Robot.drivetrain.driveDistance(distance);
+
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.collector.retractCollector();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.collector.isRetracted();
+        //returns true if the encoders are within <tolerance> percent of the setpoint
+        return Robot.drivetrain.getCurrentLeftEncoderDistance() < Robot.drivetrain.getLeftSetpoint() * 1 + tolerance
+                && Robot.drivetrain.getCurrentLeftEncoderDistance() > Robot.drivetrain.getLeftSetpoint() * 1 - tolerance
+                && Robot.drivetrain.getCurrentRightEncoderDistance() < Robot.drivetrain.getRightSetpoint() * 1 + tolerance
+                && Robot.drivetrain.getCurrentRightEncoderDistance() > Robot.drivetrain.getRightSetpoint() * 1 - tolerance;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        Robot.drivetrain.disableBrake();//disables PID controllers
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        Robot.drivetrain.disableBrake();//disables PID controllers
     }
 }

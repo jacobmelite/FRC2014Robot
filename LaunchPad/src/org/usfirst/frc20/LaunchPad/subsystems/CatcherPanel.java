@@ -40,5 +40,8 @@ public class CatcherPanel extends Subsystem {
     public boolean isOut() {
         return doubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
     }
+    public boolean isIn(){
+        return doubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse);
+    }
     
 }

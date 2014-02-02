@@ -12,6 +12,7 @@ package org.usfirst.frc20.LaunchPad.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc20.LaunchPad.commands.CollectorIdleCommand;
 
 /**
  *
@@ -42,7 +43,7 @@ public class Collector extends Subsystem {
     }
 
     public void initDefaultCommand() {
-
+        setDefaultCommand(new CollectorIdleCommand());
     }
 
     public void extendCollector() {
@@ -79,5 +80,9 @@ public class Collector extends Subsystem {
     public boolean isExtended() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward)
                 && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
+    }
+    public boolean isRetracted(){
+        return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse)
+                && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse);
     }
 }

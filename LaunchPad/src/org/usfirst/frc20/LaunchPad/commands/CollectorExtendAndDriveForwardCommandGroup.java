@@ -29,5 +29,7 @@ public class CollectorExtendAndDriveForwardCommandGroup extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+        addSequential(new CollectorDriveForwardCommand());
+        addSequential(new CollectorExtendCommand());
     }
 }

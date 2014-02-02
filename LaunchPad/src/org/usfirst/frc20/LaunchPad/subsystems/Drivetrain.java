@@ -116,6 +116,18 @@ public class Drivetrain extends Subsystem {
         return gyro.getAngle() % 360;
     }
 
+    public double getCurrentLeftEncoderDistance(){
+        return leftEncoder.getDistance();
+    }
+    public double getCurrentRightEncoderDistance(){
+        return rightEncoder.getDistance();
+    }
+    public double getLeftSetpoint(){
+        return leftBrake.getSetpoint();
+    }
+    public double getRightSetpoint(){
+        return rightBrake.getSetpoint();
+    }
     public void enableBrake() {
       /*  leftBrake1.enable();
         leftBrake2.enable();
@@ -138,6 +150,13 @@ public class Drivetrain extends Subsystem {
         rightBrake3.disable();*/
         leftBrake.disable();
         rightBrake.disable();
+    }
+    
+    public void driveDistance(int distance){
+        leftBrake.setSetpoint(leftEncoder.getDistance()+distance);
+        rightBrake.setSetpoint(rightEncoder.getDistance()+distance);
+        leftBrake.enable();
+        rightBrake.enable();
     }
     
 

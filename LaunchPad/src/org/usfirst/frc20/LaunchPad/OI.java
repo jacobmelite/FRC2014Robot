@@ -73,7 +73,7 @@ public class OI {
         
         /*driverButtonA.whenPressed(new BrakeCommand());
         //driverButtonB.whenPressed(new CatapaultSweetSpotRetractAndShootCommandGroup());
-       // driverButtonX.whenPressed(null);
+       // driverButtonX.whenPressed(new ArcadeDriveCommand());
         
         driverButtonY.whenPressed(new CollectorExtendOrRetractCommand());//alternates the collector between extended and retracted
         driverButtonRB.whenPressed(new CollectorDriveForwardCommand());

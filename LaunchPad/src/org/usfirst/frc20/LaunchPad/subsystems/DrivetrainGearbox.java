@@ -31,6 +31,12 @@ public class DrivetrainGearbox extends Subsystem {
     public void shiftToLow(){
         shifter.set(DoubleSolenoid.Value.kReverse);
     }
+    public boolean isInHigh(){
+        return shifter.get().equals(DoubleSolenoid.Value.kForward);
+    }
+    public boolean isInLow(){
+        return shifter.get().equals(DoubleSolenoid.Value.kReverse);
+    }
     
     protected void initDefaultCommand() {
         setDefaultCommand(new DrivetrainGearboxShiftHighCommand());
