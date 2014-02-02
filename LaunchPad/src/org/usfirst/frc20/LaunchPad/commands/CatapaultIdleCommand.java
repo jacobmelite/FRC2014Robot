@@ -17,9 +17,9 @@ import org.usfirst.frc20.LaunchPad.Robot;
 /**
  *
  */
-public class  CatapultSweetSpotShotRetractCommand extends Command {
+public class  CatapaultIdleCommand extends Command {
 
-    public CatapultSweetSpotShotRetractCommand() {
+    public CatapaultIdleCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 	requires(Robot.catapult);
@@ -33,12 +33,12 @@ public class  CatapultSweetSpotShotRetractCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.catapult.sweetSpotShotRetract();
+        Robot.catapult.idle();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.catapult.isCatapultDown();
+        return false;
     }
 
     // Called once after isFinished returns true

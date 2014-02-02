@@ -12,6 +12,7 @@ package org.usfirst.frc20.LaunchPad.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -21,11 +22,31 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Drivetrain extends Subsystem {
 
+       public class source implements PIDOutput {
+
+        Talon m1;
+        Talon m2;
+        Talon m3;
+
+        source(Talon t1, Talon t2, Talon t3) {
+            m1 = t1;
+            m2 = t2;
+            m3=t3;
+        }
+
+        public void pidWrite(double t1) {
+            m1.set(t1);
+            m2.set(t1);
+            m3.set(t1);
+        }
+
+    }
     Gyro gyro;
     private Talon leftTalon1, leftTalon2, leftTalon3;
     private Talon rightTalon1, rightTalon2, rightTalon3;
-    PIDController leftBrake1, leftBrake2, leftBrake3;
-    PIDController rightBrake1, rightBrake2, rightBrake3;
+   // PIDController leftBrake1, leftBrake2, leftBrake3;
+    //PIDController rightBrake1, rightBrake2, rightBrake3;
+    PIDController leftBrake,rightBrake;
     Encoder leftEncoder;
     Encoder rightEncoder;
 
@@ -52,13 +73,17 @@ public class Drivetrain extends Subsystem {
         leftEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
         rightEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
         
-        leftBrake1 = new PIDController(P, I, D, leftEncoder, leftTalon1);
+        source leftSource= new source(leftTalon1,leftTalon2,leftTalon3);
+        source rightSource = new source(rightTalon1,rightTalon2,rightTalon3);
+        leftBrake = new PIDController(P,I,D,leftEncoder,leftSource);
+        rightBrake = new PIDController(P,I,D,rightEncoder,rightSource);
+       /* leftBrake1 = new PIDController(P, I, D, leftEncoder, leftTalon1);
         leftBrake2 = new PIDController(P, I, D, leftEncoder, leftTalon2);
         leftBrake3 = new PIDController(P, I, D, leftEncoder, leftTalon3);
 
         rightBrake1 = new PIDController(P, I, D, rightEncoder, rightTalon1);
         rightBrake2 = new PIDController(P, I, D, rightEncoder, rightTalon2);
-        rightBrake3 = new PIDController(P, I, D, rightEncoder, rightTalon3);
+        rightBrake3 = new PIDController(P, I, D, rightEncoder, rightTalon3);*/
     }
 
     /**
@@ -92,22 +117,27 @@ public class Drivetrain extends Subsystem {
     }
 
     public void enableBrake() {
-        leftBrake1.enable();
+      /*  leftBrake1.enable();
         leftBrake2.enable();
         leftBrake3.enable();
         rightBrake1.enable();
         rightBrake2.enable();
-        rightBrake3.enable();
+        rightBrake3.enable();*/
+        leftBrake.enable();
+        rightBrake.enable();
     }
 
     public void disableBrake() {
-        leftBrake1.disable();
+      /*  leftBrake1.disable();
         leftBrake2.disable();
         leftBrake3.disable();
         rightBrake1.disable();
         rightBrake2.disable();
-        rightBrake3.disable();
+        rightBrake3.disable();*/
+        leftBrake.disable();
+        rightBrake.disable();
     }
+    
 
     public void initDefaultCommand() {
 

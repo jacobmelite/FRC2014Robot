@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc20.LaunchPad.commands.CatapultIdleCommand;
+import org.usfirst.frc20.LaunchPad.commands.CatapaultIdleCommand;
 
 /**
  *
@@ -70,7 +70,7 @@ public class Catapult extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new CatapultIdleCommand());
+        setDefaultCommand(new CatapaultIdleCommand());
     }
 
     private class Gearbox {

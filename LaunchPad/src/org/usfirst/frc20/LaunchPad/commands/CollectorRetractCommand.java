@@ -23,6 +23,7 @@ public class CollectorRetractCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
         Robot.collector.retractCollector();
+        
     }
 
     // Called repeatedly when this Command is scheduled to run

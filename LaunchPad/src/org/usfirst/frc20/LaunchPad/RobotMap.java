@@ -72,5 +72,6 @@ public class RobotMap {
     public static int collectorRollerMotorChannel;
 
     public static void init() {
+        
     }
 }
