@@ -41,12 +41,13 @@ public class Drivetrain extends Subsystem {
         }
 
     }
+       
     Gyro gyro;
     private Talon leftTalon1, leftTalon2, leftTalon3;
     private Talon rightTalon1, rightTalon2, rightTalon3;
    // PIDController leftBrake1, leftBrake2, leftBrake3;
     //PIDController rightBrake1, rightBrake2, rightBrake3;
-    PIDController leftBrake,rightBrake;
+    PIDController leftBrake,rightBrake, turningController;
     Encoder leftEncoder;
     Encoder rightEncoder;
 
@@ -66,10 +67,12 @@ public class Drivetrain extends Subsystem {
         rightTalon3 = new Talon(right3);
 
         gyro = new Gyro(gyroChannel);
-
+        gyro.setPIDSourceParameter(PIDSource.PIDSourceParameter.kAngle);
+        
         leftEncoder = new Encoder(leftEncoderChannelA, leftEncoderChannelB);
         rightEncoder = new Encoder(rightEncoderChannelA, rightEncoderChannelB);
-
+        //leftEncoder.setDistancePerPulse( );
+        //rightEncoder.setDistancePerPulse( );
         leftEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
         rightEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
         
@@ -77,6 +80,7 @@ public class Drivetrain extends Subsystem {
         source rightSource = new source(rightTalon1,rightTalon2,rightTalon3);
         leftBrake = new PIDController(P,I,D,leftEncoder,leftSource);
         rightBrake = new PIDController(P,I,D,rightEncoder,rightSource);
+        turningController = new PIDController(P,I,D,gyro,leftSource);
        /* leftBrake1 = new PIDController(P, I, D, leftEncoder, leftTalon1);
         leftBrake2 = new PIDController(P, I, D, leftEncoder, leftTalon2);
         leftBrake3 = new PIDController(P, I, D, leftEncoder, leftTalon3);
@@ -107,7 +111,12 @@ public class Drivetrain extends Subsystem {
         leftTalon2.set(speed);
         leftTalon3.set(speed);
     }
-
+    public double getLeftSpeed(){
+        return leftTalon1.get();
+    }
+    public double getRightSpeed(){
+        return rightTalon1.get();
+    }
     public double getHeading() {
         return gyro.getAngle();
     }
@@ -128,6 +137,9 @@ public class Drivetrain extends Subsystem {
     public double getRightSetpoint(){
         return rightBrake.getSetpoint();
     }
+    public double getAngleSetpoint(){
+        return turningController.getSetpoint();
+    }
     public void enableBrake() {
       /*  leftBrake1.enable();
         leftBrake2.enable();
@@ -135,6 +147,7 @@ public class Drivetrain extends Subsystem {
         rightBrake1.enable();
         rightBrake2.enable();
         rightBrake3.enable();*/
+        turningController.disable();
         leftBrake.setSetpoint(leftEncoder.getDistance());
         rightBrake.setSetpoint(rightEncoder.getDistance());
         leftBrake.enable();
@@ -152,11 +165,22 @@ public class Drivetrain extends Subsystem {
         rightBrake.disable();
     }
     
-    public void driveDistance(int distance){
+    
+    public void driveDistance(double distance){
+        turningController.disable();
         leftBrake.setSetpoint(leftEncoder.getDistance()+distance);
         rightBrake.setSetpoint(rightEncoder.getDistance()+distance);
         leftBrake.enable();
         rightBrake.enable();
+    }
+    public void driveAngle(double angle){
+        leftBrake.disable();
+        rightBrake.disable();
+        turningController.setSetpoint(getHeading()+angle);
+        turningController.enable();
+    }
+    public void disableTurningController(){
+        turningController.disable();
     }
     
 

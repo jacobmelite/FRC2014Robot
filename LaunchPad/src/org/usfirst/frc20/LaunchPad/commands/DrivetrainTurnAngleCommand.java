@@ -12,45 +12,41 @@ import org.usfirst.frc20.LaunchPad.Robot;
  *
  * @author Elfun Gift
  */
-public class DrivetrainDriveDistanceCommand extends Command {
-
-    int distance;
-    double tolerance = .03;
-
-    public DrivetrainDriveDistanceCommand(int distance) {
+public class DrivetrainTurnAngleCommand extends Command {
+    private double angle;
+    private double tolerance = .03;
+    public DrivetrainTurnAngleCommand(double angle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
-        this.distance = distance;
+        this.angle=angle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.drivetrain.driveDistance(distance);
-
+        Robot.drivetrain.driveAngle(angle);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        Robot.drivetrain.setRightSpeed(-Robot.drivetrain.getLeftSpeed());//sets the right side to the opposite speed of the left side
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        //returns true if the encoders are within <tolerance> percent of the setpoint
-        return Robot.drivetrain.getCurrentLeftEncoderDistance() < Robot.drivetrain.getLeftSetpoint() * (1 + tolerance)
-                && Robot.drivetrain.getCurrentLeftEncoderDistance() > Robot.drivetrain.getLeftSetpoint() * (1 - tolerance)
-                && Robot.drivetrain.getCurrentRightEncoderDistance() < Robot.drivetrain.getRightSetpoint() * (1 + tolerance)
-                && Robot.drivetrain.getCurrentRightEncoderDistance() > Robot.drivetrain.getRightSetpoint() * (1 - tolerance);
+        return Robot.drivetrain.getHeading()<Robot.drivetrain.getAngleSetpoint()*(1+tolerance)
+                &&Robot.drivetrain.getHeading()>Robot.drivetrain.getAngleSetpoint()*(1-tolerance);
     }
 
     // Called once after isFinished returns true
     protected void end() {
-        Robot.drivetrain.disableBrake();//disables PID controllers
+        Robot.drivetrain.disableTurningController();
+        
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        Robot.drivetrain.disableBrake();//disables PID controllers
+        Robot.drivetrain.disableTurningController();
     }
 }
