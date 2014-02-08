@@ -27,7 +27,8 @@ public class Robot extends IterativeRobot {
     public static CatcherPanel rightCatcherPanel;
     public static CatcherPanel backCatcherPanel;
     public static Collector collector;
-
+    public static LEDs leds;
+    public static Vision vision;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -82,6 +83,9 @@ public class Robot extends IterativeRobot {
                 RobotMap.collectorRightDoubleSolenoidReverseChannel,
                 RobotMap.collectorRollerMotorChannel);
 
+        leds = new LEDs();
+        
+        vision = new Vision();
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
