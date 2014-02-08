@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -10,8 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc20.LaunchPad.Robot;
 
 /**
- *
- * @author Driver
+ * @author Jared Gentner
  */
 public class ArcadeDriveCommand extends Command {
 
@@ -24,7 +19,7 @@ public class ArcadeDriveCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+    protected void execute() {        
         Robot.drivetrain.driveArcade(Robot.oi.logitechGamepadController.getLeftY(),
                 Robot.oi.logitechGamepadController.getAnalogTriggers());
     }

@@ -1,15 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc20.LaunchPad.Robot;
 
 /**
- *
- * @author Driver
+ * @author Jared Gentner
  */
 public class BrakeCommand extends Command {
 

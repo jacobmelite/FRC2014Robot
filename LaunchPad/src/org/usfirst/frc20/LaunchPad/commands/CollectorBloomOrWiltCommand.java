@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc20.LaunchPad.Robot;
 
 /**
- *
- * @author Elfun Gift
+ * @author Jacob Melite
  */
-public class CollectorExtendOrRetractCommand extends Command {
+public class CollectorBloomOrWiltCommand extends Command {
     
-    public CollectorExtendOrRetractCommand() {
+    public CollectorBloomOrWiltCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.collector);
@@ -22,11 +16,11 @@ public class CollectorExtendOrRetractCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        if(Robot.collector.isExtended()){
-            new CollectorRetractCommand().start();
+        if(Robot.collector.isBloomed()){
+            new CollectorWiltCommand().start();
         }
         else{
-            new CollectorExtendCommand().start();
+            new CollectorBloomCommand().start();
         }
     }
 

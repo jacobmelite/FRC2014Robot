@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc20.LaunchPad.Robot;
 
 /**
- *
- * @author Elfun Gift
+ * @author Jacob Melite
  */
 public class CollectorDriveBackCommand extends Command {
     
@@ -22,12 +16,12 @@ public class CollectorDriveBackCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.collector.driveCollector(-1);
+        Robot.collector.backDrive();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.collector.driveCollector(-1);
+        Robot.collector.backDrive();
     }
 
     // Make this return true when this Command no longer needs to run execute()

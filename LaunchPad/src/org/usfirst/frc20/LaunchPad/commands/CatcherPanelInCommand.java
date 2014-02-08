@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc20.LaunchPad.subsystems.CatcherPanel;
 
 /**
- *
- * @author Elfun Gift
+ * @author Jacob Melite
  */
 public class CatcherPanelInCommand extends Command {
 
@@ -25,12 +19,12 @@ public class CatcherPanelInCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        catcherPanel.retractIn();
+        catcherPanel.wilt();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        catcherPanel.retractIn();
+        catcherPanel.wilt();
     }
 
     // Make this return true when this Command no longer needs to run execute()
