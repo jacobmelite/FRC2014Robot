@@ -9,8 +9,6 @@
 // it from being updated in the future.
 package org.usfirst.frc20.LaunchPad;
 
-import edu.wpi.first.wpilibj.Encoder;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -19,56 +17,74 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class RobotMap {
 
+    //catapault
+    //motors
     public static int catapultMotor1Channel = 1;
     public static int catapultMotor2Channel = 2;
-
+    //limit switch
     public static int catapultLimitSwitchChannel = 1;
-
+    //pneumatics
     public static int catapultPneumaticModule = 2;
     public static int catapultMotorPneumaticForwardChannel = 1;
     public static int catapultMotorPneumaticReverseChannel = 2;
     public static int catapultRatchetPneumaticForwardChannel = 3;
     public static int catapultRatchetPneumaticReverseChannel = 4;
 
+    //drivetrain
+    //right talons
     public static int drivetrainRightTalon1Channel = 1;
     public static int drivetrainRightTalon2Channel = 2;
     public static int drivetrainRightTalon3Channel = 3;
+    //left talons
     public static int drivetrainLeftTalon1Channel = 4;
     public static int drivetrainLeftTalon2Channel = 5;
     public static int drivetrainLeftTalon3Channel = 6;
+    //pneumatics
     public static int drivetrainGearboxPneumaticModule = 1;
     public static int drivetrainGearboxPneumaticForwardChannel = 1;
     public static int drivetrainGearboxPneumaticReverseChannel = 2;
+    //gyro
     public static int drivetrainGyroChannel;
+    //right encoder
     public static int drivetrainRightEncoderChannelA;
     public static int drivetrainRightEncoderChannelB;
+    //left encoder
     public static int drivetrainLeftEncoderChannelA;
     public static int drivetrainLeftEncoderChannelB;
 
+    //controllers
     public static int logitechDualActionControllerChannel;
+
     public static int logitechGamepadControllerChannel;
 
+    //compressor channels
     public static int compressorSwitchChannel;
     public static int compressorRelayChannel;
 
+    //catchers
+    //left
     public static int leftCatcherPanelModuleNumber;
     public static int leftCatcherPanelForwardChannel;
     public static int leftCatcherPanelReverseChannel;
-
+    //right
     public static int rightCatcherPanelModuleNumber;
     public static int rightCatcherPanelForwardChannel;
     public static int rightCatcherPanelReverseChannel;
-
+    //back
     public static int backCatcherPanelModuleNumber;
     public static int backCatcherPanelForwardChannel;
     public static int backCatcherPanelReverseChannel;
 
+    //collector
+    //left doublesolenoid
     public static int collectorLeftDoubleSolenoidModuleNumber;
     public static int collectorLeftDoubleSolenoidForwardChannel;
     public static int collectorLeftDoubleSolenoidReverseChannel;
+    //right doublesolenoid
     public static int collectorRightDoubleSolenoidModuleNumber;
     public static int collectorRightDoubleSolenoidForwardChannel;
     public static int collectorRightDoubleSolenoidReverseChannel;
+    //collector motor
     public static int collectorRollerMotorChannel;
 
     public static void init() {
