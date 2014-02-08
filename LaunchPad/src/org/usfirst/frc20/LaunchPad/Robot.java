@@ -36,6 +36,7 @@ public class Robot extends IterativeRobot {
     public static CatcherPanel rightCatcherPanel;
     public static CatcherPanel backCatcherPanel;
     public static Collector collector;
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -82,7 +83,7 @@ public class Robot extends IterativeRobot {
         backCatcherPanel = new CatcherPanel(RobotMap.backCatcherPanelModuleNumber,
                 RobotMap.backCatcherPanelForwardChannel,
                 RobotMap.backCatcherPanelReverseChannel);
-        
+
         collector = new Collector(RobotMap.collectorLeftDoubleSolenoidModuleNumber,
                 RobotMap.collectorLeftDoubleSolenoidForwardChannel,
                 RobotMap.collectorLeftDoubleSolenoidReverseChannel,
@@ -90,14 +91,12 @@ public class Robot extends IterativeRobot {
                 RobotMap.collectorRightDoubleSolenoidForwardChannel,
                 RobotMap.collectorRightDoubleSolenoidReverseChannel,
                 RobotMap.collectorRollerMotorChannel);
-        
-        
+
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
-
         oi = new OI(
                 new LogitechDualActionController(RobotMap.logitechDualActionControllerChannel),
                 new LogitechGamepadController(RobotMap.logitechGamepadControllerChannel));

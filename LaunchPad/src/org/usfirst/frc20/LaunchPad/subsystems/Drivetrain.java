@@ -18,20 +18,28 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * @author Jared Gentner
+ * @author Jacob Melite
  */
 public class Drivetrain extends Subsystem {
 
-       public class source implements PIDOutput {
+    /**
+     * Used in the PID controllers in this class. Makes it easier to control the
+     * controllers and reduces necessary computations by only needing to
+     * calculate once, and writing to 3 controllers at once instead of 3
+     * separate controllers.
+     *
+     */
+    private class Source implements PIDOutput {
 
         Talon m1;
         Talon m2;
         Talon m3;
 
-        source(Talon t1, Talon t2, Talon t3) {
+        Source(Talon t1, Talon t2, Talon t3) {
             m1 = t1;
             m2 = t2;
-            m3=t3;
+            m3 = t3;
         }
 
         public void pidWrite(double t1) {
@@ -41,13 +49,13 @@ public class Drivetrain extends Subsystem {
         }
 
     }
-       
+
     Gyro gyro;
     private Talon leftTalon1, leftTalon2, leftTalon3;
     private Talon rightTalon1, rightTalon2, rightTalon3;
-   // PIDController leftBrake1, leftBrake2, leftBrake3;
+    // PIDController leftBrake1, leftBrake2, leftBrake3;
     //PIDController rightBrake1, rightBrake2, rightBrake3;
-    PIDController leftBrake,rightBrake, turningController;
+    PIDController leftBrake, rightBrake, turningController;
     Encoder leftEncoder;
     Encoder rightEncoder;
 
@@ -58,6 +66,7 @@ public class Drivetrain extends Subsystem {
             int gyroChannel, int leftEncoderChannelA, int leftEncoderChannelB,
             int rightEncoderChannelA, int rightEncoderChannelB) {
 
+        //motor controllers
         leftTalon1 = new Talon(left1);
         leftTalon2 = new Talon(left2);
         leftTalon3 = new Talon(left3);
@@ -66,87 +75,137 @@ public class Drivetrain extends Subsystem {
         rightTalon2 = new Talon(right2);
         rightTalon3 = new Talon(right3);
 
+        //gyro
         gyro = new Gyro(gyroChannel);
         gyro.setPIDSourceParameter(PIDSource.PIDSourceParameter.kAngle);
-        
+
+        //encoders TODO: Find distanceperpulse
         leftEncoder = new Encoder(leftEncoderChannelA, leftEncoderChannelB);
         rightEncoder = new Encoder(rightEncoderChannelA, rightEncoderChannelB);
         //leftEncoder.setDistancePerPulse( );
         //rightEncoder.setDistancePerPulse( );
         leftEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
         rightEncoder.setPIDSourceParameter(PIDSource.PIDSourceParameter.kDistance);
-        
-        source leftSource= new source(leftTalon1,leftTalon2,leftTalon3);
-        source rightSource = new source(rightTalon1,rightTalon2,rightTalon3);
-        leftBrake = new PIDController(P,I,D,leftEncoder,leftSource);
-        rightBrake = new PIDController(P,I,D,rightEncoder,rightSource);
-        turningController = new PIDController(P,I,D,gyro,leftSource);
-       /* leftBrake1 = new PIDController(P, I, D, leftEncoder, leftTalon1);
-        leftBrake2 = new PIDController(P, I, D, leftEncoder, leftTalon2);
-        leftBrake3 = new PIDController(P, I, D, leftEncoder, leftTalon3);
 
-        rightBrake1 = new PIDController(P, I, D, rightEncoder, rightTalon1);
-        rightBrake2 = new PIDController(P, I, D, rightEncoder, rightTalon2);
-        rightBrake3 = new PIDController(P, I, D, rightEncoder, rightTalon3);*/
+        //PID Controllers
+        Source leftSource = new Source(leftTalon1, leftTalon2, leftTalon3);
+        Source rightSource = new Source(rightTalon1, rightTalon2, rightTalon3);
+        leftBrake = new PIDController(P, I, D, leftEncoder, leftSource);
+        rightBrake = new PIDController(P, I, D, rightEncoder, rightSource);
+        turningController = new PIDController(P, I, D, gyro, leftSource);
     }
 
     /**
+     * Drives the right and left motors in arcade drive
      *
-     * @param magnitude
-     * @param diff
+     * @param magnitude speed
+     * @param diff turning
      */
     public void driveArcade(double magnitude, double diff) {
-        setLeftSpeed(-magnitude + diff);
+        setLeftSpeed(-magnitude + diff);//idk why this is negative - Jacob Melite
         setRightSpeed(magnitude + diff);
     }
 
+    /**
+     * sets the speed of the right talons
+     *
+     * @param speed a double between -1 and 1
+     */
     public void setRightSpeed(double speed) {
         rightTalon1.set(speed);
         rightTalon2.set(speed);
         rightTalon3.set(speed);
     }
 
+    /**
+     * sets the speed of the left talons
+     *
+     * @param speed a double between -1 and 1
+     */
     public void setLeftSpeed(double speed) {
         leftTalon1.set(speed);
         leftTalon2.set(speed);
         leftTalon3.set(speed);
     }
-    public double getLeftSpeed(){
+
+    /**
+     *
+     * @return the speed of leftTalon1
+     */
+    public double getLeftSpeed() {
         return leftTalon1.get();
     }
-    public double getRightSpeed(){
+
+    /**
+     *
+     * @return the speed of rightTalon1
+     */
+    public double getRightSpeed() {
         return rightTalon1.get();
     }
+
+    /**
+     *
+     * @return the current angle of the gyro
+     */
     public double getHeading() {
         return gyro.getAngle();
     }
 
+    /**
+     *
+     * @return the angle of the gyro % 360
+     */
     public double getAdjustedHeading() {
         return gyro.getAngle() % 360;
     }
 
-    public double getCurrentLeftEncoderDistance(){
+    /**
+     *
+     * @return the distance of the left encoder
+     */
+    public double getCurrentLeftEncoderDistance() {
         return leftEncoder.getDistance();
     }
-    public double getCurrentRightEncoderDistance(){
+
+    /**
+     *
+     * @return the distance of the right encoder
+     */
+    public double getCurrentRightEncoderDistance() {
         return rightEncoder.getDistance();
     }
-    public double getLeftSetpoint(){
+
+    /**
+     *
+     * @return the current setpoint of <code>leftBrake</code>
+     */
+    public double getLeftSetpoint() {
         return leftBrake.getSetpoint();
     }
-    public double getRightSetpoint(){
+
+    /**
+     *
+     * @return the current setpoint of <code>rightBrake</code>
+     */
+    public double getRightSetpoint() {
         return rightBrake.getSetpoint();
     }
-    public double getAngleSetpoint(){
+
+    /**
+     *
+     * @return the current setpoint of <code>turningController</code>
+     */
+    public double getAngleSetpoint() {
         return turningController.getSetpoint();
     }
+
+    /**
+     * disables the turningController, sets the setpoint of left and right brake
+     * to their encoder's current distance, enables left and right brake
+     * controllers
+     */
     public void enableBrake() {
-      /*  leftBrake1.enable();
-        leftBrake2.enable();
-        leftBrake3.enable();
-        rightBrake1.enable();
-        rightBrake2.enable();
-        rightBrake3.enable();*/
         turningController.disable();
         leftBrake.setSetpoint(leftEncoder.getDistance());
         rightBrake.setSetpoint(rightEncoder.getDistance());
@@ -154,37 +213,50 @@ public class Drivetrain extends Subsystem {
         rightBrake.enable();
     }
 
+    /**
+     * disables the left and right brake controllers
+     */
     public void disableBrake() {
-      /*  leftBrake1.disable();
-        leftBrake2.disable();
-        leftBrake3.disable();
-        rightBrake1.disable();
-        rightBrake2.disable();
-        rightBrake3.disable();*/
         leftBrake.disable();
         rightBrake.disable();
     }
-    
-    
-    public void driveDistance(double distance){
+
+    /**
+     * disables turning controller, sets the setpoint of left and right brake to
+     * <code>distance</code> + the current encoder distance, enables left and
+     * right brake controllers
+     *
+     * @param distance
+     */
+    public void driveDistance(double distance) {
         turningController.disable();
-        leftBrake.setSetpoint(leftEncoder.getDistance()+distance);
-        rightBrake.setSetpoint(rightEncoder.getDistance()+distance);
+        leftBrake.setSetpoint(leftEncoder.getDistance() + distance);
+        rightBrake.setSetpoint(rightEncoder.getDistance() + distance);
         leftBrake.enable();
         rightBrake.enable();
     }
-    public void driveAngle(double angle){
+
+    /**
+     * disables left and right brake controllers, sets the setpoint of turning
+     * controllers to the current heading + <code>angle</code>
+     *
+     * @param angle
+     */
+    public void driveAngle(double angle) {
         leftBrake.disable();
         rightBrake.disable();
-        turningController.setSetpoint(getHeading()+angle);
+        turningController.setSetpoint(getHeading() + angle);
         turningController.enable();
     }
-    public void disableTurningController(){
+
+    /**
+     * disables the turning controller
+     */
+    public void disableTurningController() {
         turningController.disable();
     }
-    
 
     public void initDefaultCommand() {
-
+        
     }
 }

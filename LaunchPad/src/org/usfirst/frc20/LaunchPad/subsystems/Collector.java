@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc20.LaunchPad.commands.CollectorIdleCommand;
 
 /**
- *
+ *@author Jacob Melite
  */
 public class Collector extends Subsystem {
 
@@ -43,45 +43,79 @@ public class Collector extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new CollectorIdleCommand());
+        setDefaultCommand(new CollectorIdleCommand());//idles as defualt command
     }
 
+    /**
+     * sets the right and left doublesolenoids to kForward
+     */
     public void extendCollector() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
 
     }
 
+    /**
+     * sets the right and left doublesolenoids to kReverse
+     */
     public void retractCollector() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
         rightDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
+    /**
+     * drives the collector at speed <code>speed</code>
+     * @param speed a double between -1 and 1
+     */
     public void driveCollector(double speed) {
         motor.set(speed);
     }
 
+    /**
+     * sets the motor to 0
+     */
     public void stopCollector() {
         motor.set(0);
     }
 
+    /**
+     * 
+     * @return true if the speed is greater than 0 
+     */
     public boolean isDrivingForward() {
         return motor.get() > 0;
     }
 
+    /**
+     * 
+     * @return  true if the motor speed equals 0
+     */
     public boolean isStopped() {
         return motor.get() == 0;
     }
 
+    /**
+     * 
+     * @return true if the motor speed is below 0
+     */
     public boolean isDrivingBackwards() {
         return motor.get() < 0;
     }
 
+    /**
+     * 
+     * @return true if both doublesolenoids have a value of kForward
+     */
     public boolean isExtended() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward)
                 && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
     }
-    public boolean isRetracted(){
+
+    /**
+     * 
+     * @return true if both doublesolenoids have a value of kReverse
+     */
+    public boolean isRetracted() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse)
                 && rightDoubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse);
     }

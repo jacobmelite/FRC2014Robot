@@ -19,27 +19,32 @@ import org.usfirst.frc20.LaunchPad.commands.DrivetrainGearboxShiftHighCommand;
 public class DrivetrainGearbox extends Subsystem {
 
     private final DoubleSolenoid shifter;
-    
-    public DrivetrainGearbox(int moduleNumber, int shifterForwardChannel, int shifterReverseChannel){
+
+    public DrivetrainGearbox(int moduleNumber, int shifterForwardChannel, int shifterReverseChannel) {
         shifter = new DoubleSolenoid(moduleNumber, shifterForwardChannel, shifterReverseChannel);
     }
-    
-    public void shiftToHigh(){
+
+    /**
+     * sets the doublesolenoid 
+     */
+    public void shiftToHigh() {
         shifter.set(DoubleSolenoid.Value.kForward);
     }
-    
-    public void shiftToLow(){
+
+    public void shiftToLow() {
         shifter.set(DoubleSolenoid.Value.kReverse);
     }
-    public boolean isInHigh(){
+
+    public boolean isInHigh() {
         return shifter.get().equals(DoubleSolenoid.Value.kForward);
     }
-    public boolean isInLow(){
+
+    public boolean isInLow() {
         return shifter.get().equals(DoubleSolenoid.Value.kReverse);
     }
-    
+
     protected void initDefaultCommand() {
-        setDefaultCommand(new DrivetrainGearboxShiftHighCommand());
+        setDefaultCommand(new DrivetrainGearboxShiftHighCommand());//sets the default command to high gear
     }
-    
+
 }

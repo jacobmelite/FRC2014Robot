@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc20.LaunchPad.commands.CatapaultIdleCommand;
 
 /**
- *
+ * @author Jared Gentner 
  */
 public class Catapult extends Subsystem {
 
@@ -35,6 +35,7 @@ public class Catapult extends Subsystem {
         limitSwitch = new DigitalInput(limitSwitchDigitalInput);
     }
 
+    
     public void sweetSpotShotRetract() {
         gearbox.engageMotors();
         gearbox.engageRatchet();
@@ -70,7 +71,7 @@ public class Catapult extends Subsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new CatapaultIdleCommand());
+        setDefaultCommand(new CatapaultIdleCommand());//idles as default
     }
 
     private class Gearbox {

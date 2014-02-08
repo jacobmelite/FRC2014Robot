@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc20.LaunchPad.commands.CatcherPanelOutCommand;
 
 /**
- *
+ *@author Jacob Melite
  */
 public class CatcherPanel extends Subsystem {
 
@@ -25,14 +25,14 @@ public class CatcherPanel extends Subsystem {
     }
     
     protected void initDefaultCommand() {
-        setDefaultCommand(new CatcherPanelOutCommand(this));
+        setDefaultCommand(new CatcherPanelOutCommand(this));//extends catcher panel out as default command
     }
 
-    public void out() {
+    public void extendOut() {
         doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void in() {
+    public void retractIn() {
         doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
     

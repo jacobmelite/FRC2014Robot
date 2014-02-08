@@ -13,13 +13,15 @@ import org.usfirst.frc20.LaunchPad.Robot;
  * @author Elfun Gift
  */
 public class DrivetrainTurnAngleCommand extends Command {
+
     private double angle;
     private double tolerance = .03;
+
     public DrivetrainTurnAngleCommand(double angle) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
-        this.angle=angle;
+        this.angle = angle;
     }
 
     // Called just before this Command runs the first time
@@ -34,14 +36,14 @@ public class DrivetrainTurnAngleCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drivetrain.getHeading()<Robot.drivetrain.getAngleSetpoint()*(1+tolerance)
-                &&Robot.drivetrain.getHeading()>Robot.drivetrain.getAngleSetpoint()*(1-tolerance);
+        return Robot.drivetrain.getHeading() < Robot.drivetrain.getAngleSetpoint() * (1 + tolerance)
+                && Robot.drivetrain.getHeading() > Robot.drivetrain.getAngleSetpoint() * (1 - tolerance);
     }
 
     // Called once after isFinished returns true
     protected void end() {
         Robot.drivetrain.disableTurningController();
-        
+
     }
 
     // Called when another command which requires one or more of the same
