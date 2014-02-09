@@ -35,14 +35,14 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         RobotMap.init();
-        catapault = new Catapult(RobotMap.catapultMotor1Channel,
-                RobotMap.catapultMotor2Channel,
-                RobotMap.catapultPneumaticModule,
-                RobotMap.catapultRatchetPneumaticForwardChannel,
-                RobotMap.catapultRatchetPneumaticReverseChannel,
-                RobotMap.catapultMotorPneumaticForwardChannel,
-                RobotMap.catapultMotorPneumaticReverseChannel,
-                RobotMap.catapultLimitSwitchChannel);
+        catapault = new Catapult(RobotMap.catapaultMotor1Channel,
+                RobotMap.catapaultMotor2Channel,
+                RobotMap.catapaultPneumaticModule,
+                RobotMap.catapaultRatchetPneumaticForwardChannel,
+                RobotMap.catapaultRatchetPneumaticReverseChannel,
+                RobotMap.catapaultMotorPneumaticForwardChannel,
+                RobotMap.catapaultMotorPneumaticReverseChannel,
+                RobotMap.catapaultLimitSwitchChannel);
 
         drivetrainGearbox = new DrivetrainGearbox(RobotMap.drivetrainGearboxPneumaticModule,
                 RobotMap.drivetrainGearboxPneumaticForwardChannel,

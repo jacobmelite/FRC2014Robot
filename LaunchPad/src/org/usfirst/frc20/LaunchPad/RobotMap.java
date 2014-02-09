@@ -10,16 +10,16 @@ public class RobotMap {
     //TODO: Get channels for EVERYTHING
     //catapault
     //motors
-    public static int catapultMotor1Channel = 1;
-    public static int catapultMotor2Channel = 2;
+    public static int catapaultMotor1Channel = 1;
+    public static int catapaultMotor2Channel = 2;
     //limit switch
-    public static int catapultLimitSwitchChannel = 1;
+    public static int catapaultLimitSwitchChannel = 1;
     //pneumatics
-    public static int catapultPneumaticModule = 2;
-    public static int catapultMotorPneumaticForwardChannel = 1;
-    public static int catapultMotorPneumaticReverseChannel = 2;
-    public static int catapultRatchetPneumaticForwardChannel = 3;
-    public static int catapultRatchetPneumaticReverseChannel = 4;
+    public static int catapaultPneumaticModule = 2;
+    public static int catapaultMotorPneumaticForwardChannel = 1;
+    public static int catapaultMotorPneumaticReverseChannel = 2;
+    public static int catapaultRatchetPneumaticForwardChannel = 3;
+    public static int catapaultRatchetPneumaticReverseChannel = 4;
 
     //drivetrain
     //right talons
