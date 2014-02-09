@@ -34,11 +34,11 @@ public class Collector extends Subsystem {
 
     public void initDefaultCommand() {
         //idles as defualt command
-        setDefaultCommand(new CollectorIdleCommand());//bloom
+        setDefaultCommand(new CollectorIdleCommand());
     }
 
     /**
-     * sets the right and left doublesolenoids to kForward
+     * sets the right and left doublesolenoids to kReverse
      */
     public void bloomCollector() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -47,7 +47,7 @@ public class Collector extends Subsystem {
     }
 
     /**
-     * sets the right and left doublesolenoids to kReverse
+     * sets the right and left doublesolenoids to kForward
      */
     public void wiltCollector() {
         leftDoubleSolenoid.set(DoubleSolenoid.Value.kForward);
@@ -97,7 +97,7 @@ public class Collector extends Subsystem {
     }
 
     /**
-     * @return true if both doublesolenoids have a value of kForward
+     * @return true if both doublesolenoids have a value of kReverse
      */
     public boolean isBloomed() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kReverse)
@@ -105,7 +105,7 @@ public class Collector extends Subsystem {
     }
 
     /**
-     * @return true if both doublesolenoids have a value of kReverse
+     * @return true if both doublesolenoids have a value of kForward
      */
     public boolean isWilted() {
         return leftDoubleSolenoid.get().equals(DoubleSolenoid.Value.kForward)

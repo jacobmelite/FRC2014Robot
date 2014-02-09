@@ -186,7 +186,7 @@ public class Drivetrain extends Subsystem {
     }
 
     /**
-     * disables the turningController, sets the setpoint of left and right brake
+     * sets the setpoint of left and right brake
      * to their encoder's current distance, enables left and right brake
      * controllers
      */
@@ -206,8 +206,7 @@ public class Drivetrain extends Subsystem {
     }
 
     /**
-     * disables left and right brake controllers, sets the setpoint of turning
-     * controllers to the current heading + <code>angle</code>
+     * 
      * @param angle
      */
     public void driveAngle(double angle) {

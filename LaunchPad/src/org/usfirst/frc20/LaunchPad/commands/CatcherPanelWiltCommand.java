@@ -6,11 +6,11 @@ import org.usfirst.frc20.LaunchPad.subsystems.CatcherPanel;
 /**
  * @author Jacob Melite
  */
-public class CatcherPanelInCommand extends Command {
+public class CatcherPanelWiltCommand extends Command {
 
     CatcherPanel catcherPanel;
 
-    public CatcherPanelInCommand(CatcherPanel catcherPanel) {
+    public CatcherPanelWiltCommand(CatcherPanel catcherPanel) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(catcherPanel);
@@ -29,7 +29,7 @@ public class CatcherPanelInCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return catcherPanel.isIn();
+        return catcherPanel.isWilted();
     }
 
     // Called once after isFinished returns true

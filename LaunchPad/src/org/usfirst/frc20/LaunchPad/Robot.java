@@ -19,7 +19,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     public static OI oi;
-    public static Catapult catapult;
+    public static Catapult catapault;
     public static Drivetrain drivetrain;
     public static DrivetrainGearbox drivetrainGearbox;
     public static Compressor compressor;
@@ -35,7 +35,7 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
         RobotMap.init();
-        catapult = new Catapult(RobotMap.catapultMotor1Channel,
+        catapault = new Catapult(RobotMap.catapultMotor1Channel,
                 RobotMap.catapultMotor2Channel,
                 RobotMap.catapultPneumaticModule,
                 RobotMap.catapultRatchetPneumaticForwardChannel,
@@ -83,9 +83,10 @@ public class Robot extends IterativeRobot {
                 RobotMap.collectorRightDoubleSolenoidReverseChannel,
                 RobotMap.collectorRollerMotorChannel);
 
-        leds = new LEDs();
+        leds = new LEDs(RobotMap.ledsInitialMode);
         
         vision = new Vision();
+        
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be

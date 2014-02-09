@@ -26,11 +26,18 @@ public class CollectorBloomOrWiltCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        
+        if(Robot.collector.isBloomed()){
+            new CollectorWiltCommand().start();
+        }
+        else{
+            new CollectorBloomCommand().start();
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

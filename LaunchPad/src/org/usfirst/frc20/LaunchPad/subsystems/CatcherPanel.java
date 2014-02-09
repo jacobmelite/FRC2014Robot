@@ -2,7 +2,7 @@ package org.usfirst.frc20.LaunchPad.subsystems;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc20.LaunchPad.commands.CatcherPanelOutCommand;
+import org.usfirst.frc20.LaunchPad.commands.CatcherPanelBloomCommand;
 
 /**
  *@author Jacob Melite
@@ -16,30 +16,30 @@ public class CatcherPanel extends Subsystem {
     }
     protected void initDefaultCommand() {
         //extends catcher panel out as default command
-        setDefaultCommand(new CatcherPanelOutCommand(this));
+        setDefaultCommand(new CatcherPanelBloomCommand(this));
     }
     /**
-     * sets the doublesolenoid to kForward
+     * sets the doublesolenoid to kOff
      */
     public void bloom() {
         doubleSolenoid.set(DoubleSolenoid.Value.kOff);
     }
     /**
-     * sets the doublesolenoid to kReverse
+     * sets the doublesolenoid to kForward
      */
     public void wilt() {
         doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
     /**
-     * @return true if the doublesolenoid is kForward
+     * @return true if the doublesolenoid is kOff
      */
-    public boolean isOut() {
+    public boolean isBloomed() {
         return doubleSolenoid.get().equals(DoubleSolenoid.Value.kOff);
     }
     /**
-     * @return true if the doublesolenoid is kReverse
+     * @return true if the doublesolenoid is kForward
      */
-    public boolean isIn(){
+    public boolean isWilted(){
         return doubleSolenoid.get().equals(DoubleSolenoid.Value.kForward);
     }
     

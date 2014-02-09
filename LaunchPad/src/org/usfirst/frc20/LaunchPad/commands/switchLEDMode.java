@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc20.LaunchPad.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -11,7 +6,7 @@ import org.usfirst.frc20.LaunchPad.subsystems.LEDs;
 
 /**
  *
- * @author Elfun Gift
+ * @author Jacob Melite
  */
 public class switchLEDMode extends Command{
     int mode;
@@ -24,12 +19,12 @@ public class switchLEDMode extends Command{
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.leds.mode(mode);
+        Robot.leds.setMode(mode);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        Robot.leds.mode(mode);
+        Robot.leds.setMode(mode);
     }
 
     // Make this return true when this Command no longer needs to run execute()

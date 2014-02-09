@@ -16,8 +16,12 @@ public class LEDs extends Subsystem {
     protected void initDefaultCommand() {
         //throw new java.lang.UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public LEDs(int mode){
+        setMode(mode);
+    }
 
-    public void mode(int mode) {
+    public void setMode(int mode) {
         if (mode > 7 || mode < 0) {
             return;
         }

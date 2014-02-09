@@ -6,9 +6,9 @@ import org.usfirst.frc20.LaunchPad.subsystems.CatcherPanel;
 /**
  * @author Jacob Melite
  */
-public class CatcherPanelOutCommand extends Command {
+public class CatcherPanelBloomCommand extends Command {
     CatcherPanel catcherPanel;
-    public CatcherPanelOutCommand(CatcherPanel catcherPanel) {
+    public CatcherPanelBloomCommand(CatcherPanel catcherPanel) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(catcherPanel);
@@ -26,7 +26,7 @@ public class CatcherPanelOutCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return catcherPanel.isOut();
+        return catcherPanel.isBloomed();
     }
 
     // Called once after isFinished returns true

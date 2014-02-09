@@ -19,6 +19,11 @@ public class LogitechDualActionController extends Joystick {
     }
 
     public JoystickButton getButton(int buttonNumber) {
+        if (buttonNumber < 1) {
+            return buttons[0];
+        } else if (buttonNumber > 10) {
+            return buttons[9];
+        }
         return buttons[buttonNumber - 1];
     }
 

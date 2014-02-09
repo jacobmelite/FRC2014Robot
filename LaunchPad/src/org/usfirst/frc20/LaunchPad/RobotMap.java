@@ -7,7 +7,7 @@ package org.usfirst.frc20.LaunchPad;
  * floating around.
  */
 public class RobotMap {
-
+    //TODO: Get channels for EVERYTHING
     //catapault
     //motors
     public static int catapultMotor1Channel = 1;
@@ -78,6 +78,9 @@ public class RobotMap {
     //collector motor
     public static int collectorRollerMotorChannel;
 
+    //LEDs
+    //starting mode
+    public static int ledsInitialMode=0;
     public static void init() {
 
     }
