@@ -39,7 +39,7 @@ public class Drivetrain extends Subsystem {
         }
 
         public void pidWrite(double speed) {
-            m1.set(speed);
+            m1.set(-speed);
             m2.set(speed);
             m3.set(speed);
         }
@@ -114,7 +114,7 @@ public class Drivetrain extends Subsystem {
      * @param speed a double between -1 and 1
      */
     public void setRightSpeed(double speed) {
-        rightTalon1.set(speed);
+        rightTalon1.set(-speed);
         rightTalon2.set(speed);
         rightTalon3.set(speed);
     }
@@ -124,7 +124,7 @@ public class Drivetrain extends Subsystem {
      * @param speed a double between -1 and 1
      */
     public void setLeftSpeed(double speed) {
-        leftTalon1.set(speed);
+        leftTalon1.set(-speed);
         leftTalon2.set(speed);
         leftTalon3.set(speed);
     }
